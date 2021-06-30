@@ -6,7 +6,7 @@ using System.Web;
 
 namespace LeHuuTuong_BigSchool001.ViewModels
 {
-    public class CourseViewModel
+    public class CourseViewMode
     {
         public string Place { get; set; }
         public string Date { get; set; }
