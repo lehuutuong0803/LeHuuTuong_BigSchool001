@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace LeHuuTuong_BigSchool001.Controllers
 {
     public class CoursesController : Controller
@@ -28,8 +29,14 @@ namespace LeHuuTuong_BigSchool001.Controllers
         }
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(CourseViewModel viewModel)
         {
+            if(!ModelState.IsValid)
+            {
+                viewModel.Categories = _dbContext.Categories.ToList();
+                return View("Create", viewModel);
+            }    
             var course = new Course
             {
                 LectureId = User.Identity.GetUserId(),
@@ -39,7 +46,7 @@ namespace LeHuuTuong_BigSchool001.Controllers
             };
             _dbContext.Courses.Add(course);
             _dbContext.SaveChanges();
-            return View();
+            return RedirectToAction("Index","Home");
         }
     }
 }
