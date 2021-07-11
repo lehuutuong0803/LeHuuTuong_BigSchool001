@@ -9,6 +9,7 @@ namespace LeHuuTuong_BigSchool001.ViewModels
 {
     public class CourseViewModel
     {
+        public int Id { get; set; }
         [Required]
         public string Place { get; set; }
         [Required]
@@ -27,6 +28,11 @@ namespace LeHuuTuong_BigSchool001.ViewModels
                 System.Globalization.CultureInfo.InvariantCulture);
 
             return date3;
+        }
+        public string Heading { get; set; }
+        public string Action
+        {
+            get { return (Id != 0) ? "Update" : "Create"; }
         }
     }
 }
