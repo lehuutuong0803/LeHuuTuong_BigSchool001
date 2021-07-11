@@ -1,4 +1,5 @@
 ﻿using LeHuuTuong_BigSchool001.Models;
+using LeHuuTuong_BigSchool001.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,7 +20,12 @@ namespace LeHuuTuong_BigSchool001.Controllers
         {
             var upcommingCourses = _dbContext.Courses.Include(c => c.Lecture).Include(c => c.Category)
                 .Where(c => c.DateTime > DateTime.Now);
-            return View(upcommingCourses);
+            var viewModel = new CoursesViewModel
+            {
+                UpcommingCourses = upcommingCourses,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+            return View(viewModel);
         }
 
         public ActionResult About()
